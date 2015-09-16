@@ -1,3 +1,4 @@
+package src;
 /* This class represents the plan for a single machine */
 public class Machine
 {
@@ -18,8 +19,8 @@ public class Machine
         this.collectionPlan = new int[this.numSlots];
     }
 
-    /* Returns the start index of the fitted task, -1 it doesnt fit*/
-    public int addTask(Task newTask)
+    /* Returns the start index of the fitted task, -1 if it doesnt fit*/
+    public int addTask(Task task)
     {
         return -1;
     }
