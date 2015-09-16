@@ -17,4 +17,10 @@ public class Machine
         this.numSlots = numSlots;
         this.collectionPlan = new int[this.numSlots];
     }
+
+    /* Returns the start index of the fitted task, -1 it doesnt fit*/
+    public int addTask(Task newTask)
+    {
+        return -1;
+    }
 }

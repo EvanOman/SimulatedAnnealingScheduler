@@ -2,4 +2,6 @@
 public class Schedule
 {
     private ArrayList<Machine> machineList = new ArrayList<Machine>();
+
+    public     
 }
