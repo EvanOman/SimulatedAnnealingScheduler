@@ -1,4 +1,3 @@
-package src;
 /* This class represents the plan for a single machine */
 public class Machine
 {

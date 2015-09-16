@@ -15,5 +15,7 @@ public class Driver
             t.randPermute();
             System.out.println(t);
         }
+
+        TaskList tL = new TaskList(100,100);
     }
 }
