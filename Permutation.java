@@ -105,6 +105,11 @@ public class Permutation implements Iterable<Integer>
         return this.numItems;
     }
 
+    public int getInt(int index)
+    {
+        return this.permArr.get(index);
+    }
+
 
     public Permutation crossover(Permutation perm2)
     {

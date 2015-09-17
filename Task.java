@@ -24,5 +24,23 @@ public class Task
         return "TaskID:\t"+this.id+"\nDur:\t"+this.duration+"\nWindow:\t"+this.sTime+" - "+this.eTime;
     }
 
+    public int getID()
+    {
+        return this.id;
+    }
 
+    public int getSTime()
+    {
+        return this.sTime;
+    }
+
+    public int getETime()
+    {
+        return this.eTime;
+    }
+
+    public int getDur()
+    {
+        return this.duration;
+    }
 }

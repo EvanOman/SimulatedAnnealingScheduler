@@ -6,34 +6,62 @@ import java.util.Random;
 public class TaskList implements Iterable<Task>
 {
     private List<Task> tList; 
-    private Permutation tPerm;
 
-    /* Default constructor, makes a list of random tasks (which fit into the total window) */
+    /* Default constructor, just makes an empty list */
+    public TaskList()
+    {
+        this.tList = new ArrayList<Task>();
+    }
+
+    /* TODO: This should probably be moved to a SCENARIO class */
+    /* makes a list of random tasks (which fit into the total window) */
     public TaskList(int totalWindowSize, int numTasks)
     {
         /* Makes a permutation which is just consecutive numbers */
-        this.tPerm = new Permutation(totalWindowSize, true); 
+        Permutation tPerm = new Permutation(totalWindowSize, true); 
         this.tList = new ArrayList<Task>(numTasks);
 
         /* For now we will make tasks with durations up to a third of the window size */
         Random rg = new Random();
 
-        for (int i : this.tPerm)
+        for (int i : tPerm)
         {
-            int dur = rg.nextInt((totalWindowSize - 1) / 3);
+            int dur = rg.nextInt((totalWindowSize - 1) / 3) + 1;
             int sTime = rg.nextInt((int)((totalWindowSize - 1) * (2.0 / 3.0)));
             int eTime = Math.min(sTime + dur + 3, totalWindowSize - 1);
             tList.add(i, new Task(i, dur, sTime, eTime));
-            System.out.println(tList.get(i));
         }
     }
 
     public TaskList(Permutation tPerm, TaskList masterList)
     {
-        //this.tPerm = tPerm;
-        //this.tList
+        this.tList = new ArrayList<Task>(tPerm.getSize());
+
+        for (int i = 0; i < tPerm.getSize(); i++)
+        {
+            this.tList.add(tPerm.getInt(i), masterList.getTask(i));
+        }
+    }
+
+    public void addTask(Task t)
+    {
+        this.tList.add(t);
+    }
+
+    public Task getTask(int index)
+    {
+        return this.tList.get(index);
     }
     
+    public String toString()
+    {
+        String output = "";
+        for (Task task : this)
+        {   
+            output += task.toString() + "\n";
+        }
+        return output;
+    }
 
     @Override 
     public Iterator<Task> iterator()

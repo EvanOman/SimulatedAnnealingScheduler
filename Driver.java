@@ -1,5 +1,3 @@
-//package src;
-
 public class Driver
 {
     public static void main(String[] args)
@@ -17,5 +15,6 @@ public class Driver
         }
 
         TaskList tL = new TaskList(100,100);
+        System.out.println(tL);
     }
 }
