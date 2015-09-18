@@ -2,5 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/gral-core-0.9.jar"/>
+	<classpathentry kind="lib" path="lib/gral-examples-0.9.jar"/>
+	<classpathentry kind="lib" path="lib/VectorGraphics2D-0.9.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>
