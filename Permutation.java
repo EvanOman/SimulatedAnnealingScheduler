@@ -1,3 +1,4 @@
+
 //package src;
 
 import java.util.ArrayList;
@@ -9,115 +10,124 @@ import java.util.Random;
 
 public class Permutation implements Iterable<Integer>
 {
-    private int numItems;
-    private List<Integer> permArr;
-    
-    public Permutation(List<Integer> permArr)
-    {
-        this.numItems = permArr.size();
-        this.permArr = new ArrayList<Integer>(permArr);
-    }
+	private int numItems;
+	private List<Integer> permArr;
 
-    public Permutation(int numItems)
-    {
-        this.numItems = numItems;
-        this.permArr = new ArrayList<Integer>(this.numItems);
+	public Permutation(List<Integer> permArr)
+	{
+		this.numItems = permArr.size();
+		this.permArr = new ArrayList<Integer>(permArr);
+	}
 
-        consecPerm();
-        this.randPermute();
-    }
+	public Permutation(int numItems)
+	{
+		this.numItems = numItems;
+		this.permArr = filled0s(this.numItems);
 
+		consecPerm();
+		this.randPermute();
+	}
 
-    public Permutation(int numItems, boolean isConsec)
-    {
-        this.numItems = numItems;
-        this.permArr = new ArrayList<Integer>(this.numItems);
+	public Permutation(int numItems, boolean isConsec)
+	{
+		this.numItems = numItems;
+		this.permArr = filled0s(this.numItems);
 
-        consecPerm();
+		consecPerm();
 
-        /* Need to scramble the list if we want a random permutation */
-        if (!isConsec)
-        {
-            this.randPermute();
-        }
-    }
+		/* Need to scramble the list if we want a random permutation */
+		if (!isConsec)
+		{
+			this.randPermute();
+		}
+	}
 
-    private void consecPerm()
-    {
-        /* Populate permArr with integers 0 -> n-1 */
-        for (int i = 0; i < this.numItems; i++)
-        {
-            this.permArr.add(i, i);
-        }
-        
-    }
+	private void consecPerm()
+	{
+		/* Populate permArr with integers 0 -> n-1 */
+		for (int i = 0; i < this.numItems; i++)
+		{
+			this.permArr.set(i, i);
+		}
 
-    @Override 
-    public Iterator<Integer> iterator()
-    {
-        return permArr.iterator();
-    }
+	}
+	
+	private List<Integer> filled0s(int numItems)
+	{
+		List<Integer> out = Arrays.asList(new Integer[numItems]);
+//		for (int i = 0; i < numItems; i++)
+//		{
+//			out.add(0);
+//		}
+		return out;
+	}
 
-    public void randPermute()
-    {
-        /* Make a random permutation  */
-        Collections.shuffle(permArr);
-    }
+	@Override
+	public Iterator<Integer> iterator()
+	{
+		return permArr.iterator();
+	}
 
-    public Permutation makeMutation()
-    {
-        /* We will use swap mutations with 1 to 15 swaps per mutation */
-        List<Integer>  mutPermArr = this.getPermArr();
+	public void randPermute()
+	{
+		/* Make a random permutation */
+		Collections.shuffle(permArr);
+	}
 
-        Random rg = new Random();
+	public Permutation makeMutation()
+	{
+		/* We will use swap mutations with 1 to 15 swaps per mutation */
+		List<Integer> mutPermArr = this.getPermArr();
 
-        int numSwaps = rg.nextInt(15);
+		Random rg = new Random();
 
-        for (int i = 0; i < numSwaps; i++)
-        {
-            /* This is my hack for getting two random, ind. indices*/
-            int ind1 = rg.nextInt(mutPermArr.size());
-            int ind2 = ind1;
-            while (ind1 == ind2)
-            {
-                ind2 = rg.nextInt(mutPermArr.size());
-            }
+		int numSwaps = rg.nextInt(15);
 
-            int tmp = mutPermArr.get(ind1);
-            mutPermArr.add(ind1, mutPermArr.get(ind2));
-            mutPermArr.add(ind2, tmp);
-        }
-        return new Permutation(mutPermArr);
-    }
+		for (int i = 0; i < numSwaps; i++)
+		{
+			/* This is my hack for getting two random, ind. indices */
+			int ind1 = rg.nextInt(mutPermArr.size());
+			int ind2 = ind1;
+			while (ind1 == ind2)
+			{
+				ind2 = rg.nextInt(mutPermArr.size());
+			}
 
-    public Permutation clone()
-    {
-        return new Permutation(this.permArr);
-    }
+			int tmp = mutPermArr.get(ind1);
+			mutPermArr.set(ind1, mutPermArr.get(ind2));
+			mutPermArr.set(ind2, tmp);
+		}
+		return new Permutation(mutPermArr);
+	}
 
-    public List<Integer> getPermArr()
-    {
-        return this.permArr;   
-    }
+	@Override
+	public Permutation clone()
+	{
+		return new Permutation(this.permArr);
+	}
 
-    public int getSize()
-    {
-        return this.numItems;
-    }
+	public List<Integer> getPermArr()
+	{
+		return this.permArr;
+	}
 
-    public int getInt(int index)
-    {
-        return this.permArr.get(index);
-    }
+	public int getSize()
+	{
+		return this.numItems;
+	}
 
+	public int getInt(int index)
+	{
+		return this.permArr.get(index);
+	}
 
-    public Permutation crossover(Permutation perm2)
-    {
-        return perm2;
-    }
+	public Permutation crossover(Permutation perm2)
+	{
+		return perm2;
+	}
 
-    public String toString()
-    {
-        return Arrays.toString(permArr.toArray());
-    }
+	public String toString()
+	{
+		return Arrays.toString(permArr.toArray());
+	}
 }
