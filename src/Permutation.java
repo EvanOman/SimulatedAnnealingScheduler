@@ -109,7 +109,13 @@ public class Permutation implements Iterable<Integer>
 
 	public List<Integer> getPermArr()
 	{
-		return this.permArr;
+		List<Integer> out = new ArrayList<Integer>();
+		
+		for (int i : this.permArr)
+		{
+			out.add(i);
+		}
+		return out;
 	}
 
 	public int getSize()

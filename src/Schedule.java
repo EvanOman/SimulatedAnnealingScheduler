@@ -46,10 +46,10 @@ public class Schedule
 	}
 
 	/* Creates a neighboring schedule */
-	public Schedule createNeighbor()
+	public Schedule createNeighbor(List<Machine> mList, TaskList masterList)
 	{
 		Permutation newPerm = perm.makeMutation();
-		return new Schedule(machineList, tList, newPerm);
+		return new Schedule(mList, masterList, newPerm);
 	}
 
 	public double getScore()
