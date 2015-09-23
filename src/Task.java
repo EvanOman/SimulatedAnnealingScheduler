@@ -17,16 +17,17 @@ public class Task
 	public Task(int id, int duration, int sTime, int eTime, int priority)
 	{
 		this.id = id;
+		this.priority = priority;
 		this.duration = duration;
 		this.sTime = sTime;
 		this.eTime = eTime;
-		this.priority = priority;
 	}
 
 	public String toString()
 	{
-		return "TaskID:\t" + this.id + "\nDur:\t" + this.duration + "\nWindow:\t" + this.sTime + " - " + this.eTime;
+		return id + "," + priority + "," + duration + "," + sTime + "," + eTime;
 	}
+	
 
 	public int getID()
 	{

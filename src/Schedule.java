@@ -1,11 +1,13 @@
 package src;
-import java.util.ArrayList;
 import java.util.List;
+/* For plotting */
+import indiji.mlplot.MLPlot;
+import java.io.File;
 
 /* The schedule object maintains a list of Machines */
 public class Schedule
 {
-	private List<Machine> machineList = new ArrayList<Machine>();
+	private List<Machine> machineList;
 	private TaskList tList;
 	private Permutation perm;
 	private double score = 0;
@@ -55,6 +57,30 @@ public class Schedule
 	public double getScore()
 	{
 		return score;
+	}
+	
+	/* Creates a visual representation of the schedule */
+	public void plot(String fName)
+	{
+		/* Create a single matrix from all of the collection plans */
+		int numWindows = machineList.get(0).getNumSlots();
+		int numMachines = machineList.size();
+		double[][] collMat = new double[numWindows][numMachines];
+		for (int i = 0; i < numMachines; i++)
+		{
+			int[] row = machineList.get(i).getCollectionPlan();
+			for (int j = 0; j < numWindows; j++)
+			{
+				collMat[j][i] = (double) row[j];
+			}
+		}
+		
+		MLPlot p = new MLPlot();
+		p.imagesc(collMat);
+		p.setTitle("Schedule");
+
+		/* Save Vector Graphic */
+		p.save(new File(fName + ".svg"));
 	}
 
 }

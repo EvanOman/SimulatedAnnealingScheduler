@@ -1,13 +1,18 @@
 package src;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import indiji.mlplot.MLPlot;
+
 public class TaskList implements Iterable<Task>
 {
 	private List<Task> tList;
+	private int totalWidowSize = 0;
+	private int numTasks;
 
 	/* Default constructor, just makes an empty list */
 //	public TaskList()
@@ -21,6 +26,9 @@ public class TaskList implements Iterable<Task>
 	/* makes a list of random tasks (which fit into the total window) */
 	public TaskList(int totalWindowSize, int numTasks)
 	{
+		this.totalWidowSize = totalWindowSize;
+		this.numTasks = numTasks;
+		
 		/* Makes a permutation which is just consecutive numbers */
 		Permutation tPerm = new Permutation(numTasks, true);
 		this.tList = new ArrayList<Task>(Arrays.asList(new Task[numTasks]));
@@ -41,9 +49,18 @@ public class TaskList implements Iterable<Task>
 			tList.set(i, new Task(i, dur, sTime, eTime, i));
 		}
 	}
+	
+	public TaskList(List<Task> masterList, int windowLen)
+	{
+		this.tList = masterList;
+		this.totalWidowSize = windowLen;
+		this.numTasks = this.tList.size();
+	}
 
 	public TaskList(Permutation tPerm, TaskList masterList)
 	{
+		this.numTasks = masterList.getSize();
+		this.totalWidowSize = masterList.getTotalWindowSize();
 		this.tList = masterList.getList();
 		
 		for (int i = 0; i < tPerm.getSize(); i++)
@@ -66,6 +83,11 @@ public class TaskList implements Iterable<Task>
 	{
 		return this.tList.size();
 	}
+	
+	public int getTotalWindowSize()
+	{
+		return this.totalWidowSize;
+	}
 
 	public List<Task> getList()
 	{
@@ -86,6 +108,31 @@ public class TaskList implements Iterable<Task>
 			output += task.toString() + "\n";
 		}
 		return output;
+	}
+	
+	/* Creates a visual representation of the schedule */
+	public void plot(String fName)
+	{
+		/* Create a single matrix from all of the durations */
+		double[][] collMat = new double[totalWidowSize][numTasks];
+		for (int i = 0; i < numTasks; i++)
+		{
+			Task t = tList.get(i);
+			int id = t.getID();
+			int sT = t.getSTime();
+			int eT = t.getETime();
+			for (int j = 0; j < totalWidowSize; j++)
+			{
+				collMat[j][i] = (double) ((j >= sT && j <= eT) ? id : -1);
+			}
+		}
+		
+		MLPlot p = new MLPlot();
+		p.imagesc(collMat);
+		p.setTitle("Schedule");
+
+		/* Save Vector Graphic */
+		p.save(new File(fName + ".svg"));
 	}
 
 	@Override

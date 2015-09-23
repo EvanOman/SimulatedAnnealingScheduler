@@ -71,4 +71,14 @@ public class Machine
 		}
 		return true;
 	}
+	
+	public int getNumSlots()
+	{
+		return numSlots;
+	}
+	
+	public int[] getCollectionPlan()
+	{
+		return this.collectionPlan;
+	}
 }
