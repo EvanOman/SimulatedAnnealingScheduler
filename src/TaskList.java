@@ -13,6 +13,7 @@ public class TaskList implements Iterable<Task>
 	private List<Task> tList;
 	private int totalWidowSize = 0;
 	private int numTasks;
+	private List<Integer> sortIdArr;
 
 	/* Default constructor, just makes an empty list */
 //	public TaskList()
@@ -48,8 +49,15 @@ public class TaskList implements Iterable<Task>
 			/* For now the priority and the ID will be the same */
 			tList.set(i, new Task(i, dur, sTime, eTime, i));
 		}
+		this.sortIdArr = createIDArr();
 	}
 	
+	private List<Integer> createIDArr()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public TaskList(List<Task> masterList, int windowLen)
 	{
 		this.tList = masterList;

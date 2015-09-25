@@ -41,7 +41,7 @@ public class Driver
 			return;
 		}
 		
-		int maxIts = 10000;
+		int maxIts = 1000000;
 
 		Schedule sol1 = runSimAnn(tList, params.numMachines, params.windowLen, maxIts);
 

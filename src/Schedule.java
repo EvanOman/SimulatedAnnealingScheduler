@@ -1,4 +1,5 @@
 package src;
+
 import java.util.List;
 /* For plotting */
 import indiji.mlplot.MLPlot;
@@ -44,7 +45,27 @@ public class Schedule
 				}
 			}
 		}
+	}
 
+	/*
+	 * This method takes in a new taskList and makes a new permutation
+	 * maintaining any of the ordering from the original tasklist and then
+	 * adding the new tasks to the end
+	 */
+	public void updateTasks(TaskList newTaskList)
+	{
+		/* First we overwrite the existing taskList with the new one */
+		tList = newTaskList;
+		/*
+		 * Loop over the new task list adding items appropriately
+		 */
+		for (Task t : newTaskList)
+		{
+			if (!perm.hasInt(t.getID()))
+			{
+				
+			}
+		}
 	}
 
 	/* Creates a neighboring schedule */
@@ -58,7 +79,7 @@ public class Schedule
 	{
 		return score;
 	}
-	
+
 	/* Creates a visual representation of the schedule */
 	public void plot(String fName)
 	{
@@ -74,7 +95,7 @@ public class Schedule
 				collMat[j][i] = (double) row[j];
 			}
 		}
-		
+
 		MLPlot p = new MLPlot();
 		p.imagesc(collMat);
 		p.setTitle("Schedule");

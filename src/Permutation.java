@@ -13,11 +13,13 @@ public class Permutation implements Iterable<Integer>
 {
 	private int numItems;
 	private List<Integer> permArr;
+	private List<Integer> sortedArr;
 
 	public Permutation(List<Integer> permArr)
 	{
 		this.numItems = permArr.size();
 		this.permArr = new ArrayList<Integer>(permArr);
+		this.sortedArr = getSortedArr();
 	}
 
 	public Permutation(int numItems)
@@ -27,6 +29,8 @@ public class Permutation implements Iterable<Integer>
 
 		consecPerm();
 		this.randPermute();
+
+		this.sortedArr = getSortedArr();
 	}
 
 	public Permutation(int numItems, boolean isConsec)
@@ -41,6 +45,8 @@ public class Permutation implements Iterable<Integer>
 		{
 			this.randPermute();
 		}
+
+		this.sortedArr = getSortedArr();
 	}
 
 	private void consecPerm()
@@ -52,14 +58,17 @@ public class Permutation implements Iterable<Integer>
 		}
 
 	}
-	
+
+	private List<Integer> getSortedArr()
+	{
+		List<Integer> ret = getPermArr();
+		Collections.sort(ret);
+		return ret;
+	}
+
 	private List<Integer> filled0s(int numItems)
 	{
 		List<Integer> out = Arrays.asList(new Integer[numItems]);
-//		for (int i = 0; i < numItems; i++)
-//		{
-//			out.add(0);
-//		}
 		return out;
 	}
 
@@ -110,7 +119,7 @@ public class Permutation implements Iterable<Integer>
 	public List<Integer> getPermArr()
 	{
 		List<Integer> out = new ArrayList<Integer>();
-		
+
 		for (int i : this.permArr)
 		{
 			out.add(i);
@@ -118,16 +127,40 @@ public class Permutation implements Iterable<Integer>
 		return out;
 	}
 
+	/* Returns the size(number of elements) of the permArr */
 	public int getSize()
 	{
 		return this.numItems;
 	}
 
+	/* Gives the integer at index "index" */
 	public int getInt(int index)
 	{
 		return this.permArr.get(index);
 	}
 
+	/* Adds the newInt to the end of the list while respecting uniqueness */
+	public void addInt(int newInt)
+	{
+		this.permArr.add(newInt);
+		this.sortedArr = getSortedArr();
+	}
+
+	/* Uses binrary search to find the inInt */
+	public boolean hasInt(int inInt)
+	{
+		/*
+		 * If the inInt is in the list then the binary search should return an
+		 * index >= 0
+		 */
+		return (Collections.binarySearch(this.sortedArr, inInt) >= 0);
+	}
+
+	/*
+	 * Uses a crossover technique to vreate an offspring permutation from this
+	 * permutation and perm2
+	 */
+	// TODO: Implement crossover (or remove if needed)
 	public Permutation crossover(Permutation perm2)
 	{
 		return perm2;
