@@ -1,0 +1,6 @@
+# Local Search Scheduling with Simulated Annealing
+This Repository contains my Java implementation of a Simulated Annealing Local Search Scheduling Algorithm. The algorithm is given a set of tasks which need to be scheduled on some set of machines. Each tasks has a time window in which it can be scheduled. The algorithm then schedules as many high priority randomly generated tasks as possible. See the solution history plots to get an idea of how the simulatred annealing algorithm improves scores over time.
+
+The algorithm works by representing a schedule by a permutation of all the tasks. This permutation is then used to create a schdule by inserting the tasks into the machine slots in the order specified by the task permutation. Any tasks which do not fit are left out. Then at each iteration, the algorithm generates a neighbor schedule by permuting the current schedule's task permutation. If this neighbor has a better score, we select that neighbor as best and move to the next generation. If the neighbor has a worse score, we still accept with some probability which reduces over time.
+
+The algorithm can perform 100,000 iterations with 1000 tasks, 3 machines, and 50 time units in under 1 minute.
